@@ -21,7 +21,8 @@ version = 1.0.0
 
 # 应用依赖
 # 注意：sqlite3 是 Python 标准库，不需要单独安装
-requirements = python3,kivy==2.3.1,pillow
+# 使用逗号分隔，不要有空格
+requirements = python3,kivy==2.3.1,pillow,pyjnius
 
 # 权限
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, VIBRATE, RECEIVE_BOOT_COMPLETED
@@ -31,6 +32,9 @@ android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.sdk = 33
+
+# 自动接受 SDK 许可证
+android.accept_sdk_license = True
 
 # 架构
 android.archs = arm64-v8a, armeabi-v7a
@@ -49,8 +53,11 @@ orientation = portrait
 fullscreen = 0
 
 # Android 特定设置
-android.accept_sdk_license = True
 android.release_artifact = apk
+
+# 构建模式（debug 或 release）
+# buildozer android debug  # 调试版本
+# buildozer android release  # 发布版本（需要签名）
 
 # 日志级别
 log_level = 2

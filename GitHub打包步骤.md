@@ -147,9 +147,46 @@ git push -u origin main
 
 ### Q: 打包失败
 **A**: 
-- 查看 Actions 页面的错误日志
-- 检查所有必需文件是否都已上传
-- 确保 `buildozer.spec` 配置正确
+1. **查看错误日志**
+   - 在 Actions 页面点击失败的运行
+   - 查看 "Build APK" 步骤的详细日志
+   - 查找红色错误信息
+
+2. **检查 buildozer.spec 配置**
+   ```bash
+   # 在本地运行检查脚本
+   python 检查配置.py
+   ```
+   
+   确保以下配置正确：
+   - ✅ `source.main = main_kivy.py` - 主入口文件
+   - ✅ `requirements = python3,kivy==2.3.1,pillow` - 依赖（注意：逗号后不要有空格）
+   - ✅ `android.api = 33` - Android API 版本
+   - ✅ `android.minapi = 21` - 最低 API 版本
+
+3. **检查必需文件**
+   - ✅ `main_kivy.py` - 必须存在
+   - ✅ `buildozer.spec` - 必须存在
+   - ✅ `src/` 目录 - 必须存在
+   - ✅ `kivy_ui/` 目录 - 必须存在
+
+4. **常见错误及解决方法**
+   
+   **错误：找不到 main_kivy.py**
+   - 确保文件已上传到 GitHub
+   - 检查文件名大小写是否正确
+   
+   **错误：requirements 格式错误**
+   - 确保格式为：`requirements = python3,kivy==2.3.1,pillow`
+   - 不要有多余空格：`requirements = python3, kivy==2.3.1` ❌
+   - 正确格式：`requirements = python3,kivy==2.3.1` ✅
+   
+   **错误：找不到模块**
+   - 确保所有 Python 文件都已上传
+   - 检查 `src/` 和 `kivy_ui/` 目录结构完整
+   
+   **错误：SDK 许可证问题**
+   - 确保 `buildozer.spec` 中有：`android.accept_sdk_license = True`
 
 ### Q: 找不到 APK
 **A**: 

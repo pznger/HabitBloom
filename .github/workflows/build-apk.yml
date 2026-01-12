@@ -53,9 +53,44 @@ jobs:
         pip install --upgrade pip
         pip install buildozer cython
     
+    - name: Check project structure
+      run: |
+        echo "检查项目结构..."
+        ls -la
+        echo "检查主文件..."
+        test -f main_kivy.py && echo "✅ main_kivy.py 存在" || echo "❌ main_kivy.py 不存在"
+        test -f buildozer.spec && echo "✅ buildozer.spec 存在" || echo "❌ buildozer.spec 不存在"
+        test -d src && echo "✅ src 目录存在" || echo "❌ src 目录不存在"
+        test -d kivy_ui && echo "✅ kivy_ui 目录存在" || echo "❌ kivy_ui 目录不存在"
+    
+    - name: Validate buildozer.spec
+      run: |
+        echo "检查 buildozer.spec 配置..."
+        if grep -q "source.main = main_kivy.py" buildozer.spec; then
+          echo "✅ 主入口文件配置正确"
+        else
+          echo "❌ 主入口文件配置错误"
+          exit 1
+        fi
+        if grep -q "requirements = " buildozer.spec; then
+          echo "✅ 依赖配置存在"
+        else
+          echo "❌ 依赖配置缺失"
+          exit 1
+        fi
+    
     - name: Build APK
       run: |
-        buildozer android debug
+        echo "开始构建 APK..."
+        buildozer android debug 2>&1 | tee build.log
+        if [ $? -eq 0 ]; then
+          echo "✅ 构建成功"
+          ls -lh bin/*.apk 2>/dev/null || echo "⚠️  未找到 APK 文件"
+        else
+          echo "❌ 构建失败，查看日志："
+          tail -100 build.log
+          exit 1
+        fi
     
     - name: Upload APK
       uses: actions/upload-artifact@v3
