@@ -92,11 +92,20 @@ jobs:
           exit 1
         fi
     
+    - name: Locate APK files
+      run: |
+        echo "搜索 APK 文件..."
+        find . -name "*.apk" -type f || echo "未找到 APK"
+        ls -lh bin/*.apk 2>/dev/null || echo "bin/ 下未找到 APK"
+        ls -lh .buildozer/android/platform/build-*/dists/*/bin/*.apk 2>/dev/null || echo ".buildozer 下未找到 APK"
+    
     - name: Upload APK
       uses: actions/upload-artifact@v4
       with:
         name: habitbloom-apk
-        path: bin/*.apk
+        path: |
+          bin/*.apk
+          .buildozer/android/platform/build-*/dists/**/bin/*.apk
     
     # APK 文件已上传到 Artifacts，可以在 Actions 页面下载
     # 如果需要创建 Release，可以：
