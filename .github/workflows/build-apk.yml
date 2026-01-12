@@ -32,7 +32,9 @@ jobs:
           git \
           python3-dev \
           openjdk-11-jdk \
+          automake \
           autoconf \
+          autoconf-archive \
           libtool \
           pkg-config \
           libffi-dev \
