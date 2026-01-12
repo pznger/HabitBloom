@@ -101,7 +101,7 @@ jobs:
           else
             echo "⚠️  Buildozer 成功但未找到 APK 文件"
             echo "检查构建日志中的错误..."
-            grep -i "error\|fail\|exception" build.log | tail -20 || echo "未找到明显错误"
+            grep -in "error\|fail\|exception" build.log | tail -40 || echo "未找到明显错误"
             exit 1
           fi
         else
@@ -111,7 +111,7 @@ jobs:
           tail -50 build.log
           echo ""
           echo "=== 搜索错误信息 ==="
-          grep -i "error\|fail\|exception\|traceback" build.log | tail -30 || echo "未找到明显错误信息"
+          grep -in "error\|fail\|exception\|traceback" build.log | tail -80 || echo "未找到明显错误信息"
           echo ""
           echo "=== 完整日志文件位置 ==="
           echo "build.log (可在 Artifacts 中查看)"
@@ -133,6 +133,16 @@ jobs:
         echo "=== 检查 .buildozer 目录结构 ==="
         find .buildozer -type d -name "bin" 2>/dev/null | head -5 || echo "未找到 bin 目录"
     
+    - name: Show build log tail (debug)
+      if: always()
+      run: |
+        if [ -f build.log ]; then
+          echo "=== build.log 最后 200 行 ==="
+          tail -200 build.log
+        else
+          echo "build.log 不存在，可能在更早步骤失败"
+        fi
+
     - name: Upload build log
       if: always()
       uses: actions/upload-artifact@v4
