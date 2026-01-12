@@ -1,0 +1,75 @@
+name: Build HabitBloom APK
+
+on:
+  workflow_dispatch:  # 手动触发
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'main_kivy.py'
+      - 'buildozer.spec'
+      - 'src/**'
+      - 'kivy_ui/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          python3-pip \
+          build-essential \
+          git \
+          python3-dev \
+          openjdk-11-jdk \
+          autoconf \
+          libtool \
+          pkg-config \
+          libffi-dev \
+          libssl-dev \
+          zlib1g-dev \
+          libsdl2-dev \
+          libsdl2-image-dev \
+          libsdl2-mixer-dev \
+          libsdl2-ttf-dev
+    
+    - name: Set up Java
+      run: |
+        echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> $GITHUB_ENV
+        echo "$JAVA_HOME/bin" >> $GITHUB_PATH
+    
+    - name: Install Buildozer
+      run: |
+        pip install --upgrade pip
+        pip install buildozer cython
+    
+    - name: Build APK
+      run: |
+        buildozer android debug
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: habitbloom-apk
+        path: bin/*.apk
+        retention-days: 7
+    
+    - name: Create Release
+      if: github.event_name == 'workflow_dispatch'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: bin/*.apk
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
