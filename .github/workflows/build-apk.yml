@@ -98,12 +98,7 @@ jobs:
         name: habitbloom-apk
         path: bin/*.apk
     
-    - name: Create Release
-      if: github.event_name == 'workflow_dispatch'
-      uses: softprops/action-gh-release@v1
-      with:
-        files: bin/*.apk
-        draft: false
-        prerelease: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # APK 文件已上传到 Artifacts，可以在 Actions 页面下载
+    # 如果需要创建 Release，可以：
+    # 1. 手动在 GitHub 上创建 Release 并上传 APK
+    # 2. 或创建标签后使用单独的 workflow 创建 Release

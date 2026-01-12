@@ -1,0 +1,43 @@
+name: Create Release
+
+# 这个工作流只在推送标签时运行，用于创建 Release
+on:
+  push:
+    tags:
+      - 'v*'  # 只处理以 v 开头的标签，如 v1.0.0
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # 获取所有历史记录，包括标签
+    
+    - name: Build APK (Kivy)
+      run: |
+        echo "如果需要，可以在这里构建 APK"
+        # 这里可以添加构建步骤，或者使用之前构建的 APK
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          ## HabitBloom ${{ github.ref_name }}
+          
+          ### 下载 APK
+          - 从 [Actions Artifacts](https://github.com/${{ github.repository }}/actions) 下载最新的 APK
+          - 或从之前的构建中下载
+          
+          ### 更新内容
+          - 查看提交历史了解更新内容
+        draft: false
+        prerelease: ${{ contains(github.ref_name, '-') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
