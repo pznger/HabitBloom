@@ -80,24 +80,67 @@ jobs:
         fi
     
     - name: Build APK
+      timeout-minutes: 60
       run: |
         echo "开始构建 APK..."
+        echo "构建日志将保存到 build.log"
+        
+        # 使用 set -o pipefail 确保管道中的错误能被捕获
+        set -o pipefail
+        
+        # 运行 buildozer 并保存日志
         buildozer android debug 2>&1 | tee build.log
-        if [ $? -eq 0 ]; then
-          echo "✅ 构建成功"
-          ls -lh bin/*.apk 2>/dev/null || echo "⚠️  未找到 APK 文件"
+        BUILD_STATUS=$?
+        
+        if [ $BUILD_STATUS -eq 0 ]; then
+          echo "✅ Buildozer 命令执行成功"
+          # 检查 APK 文件是否真的生成了
+          if find . -name "*.apk" -type f | grep -q .; then
+            echo "✅ 找到 APK 文件："
+            find . -name "*.apk" -type f -exec ls -lh {} \;
+          else
+            echo "⚠️  Buildozer 成功但未找到 APK 文件"
+            echo "检查构建日志中的错误..."
+            grep -i "error\|fail\|exception" build.log | tail -20 || echo "未找到明显错误"
+            exit 1
+          fi
         else
-          echo "❌ 构建失败，查看日志："
-          tail -100 build.log
+          echo "❌ Buildozer 构建失败 (退出码: $BUILD_STATUS)"
+          echo ""
+          echo "=== 构建日志最后 50 行 ==="
+          tail -50 build.log
+          echo ""
+          echo "=== 搜索错误信息 ==="
+          grep -i "error\|fail\|exception\|traceback" build.log | tail -30 || echo "未找到明显错误信息"
+          echo ""
+          echo "=== 完整日志文件位置 ==="
+          echo "build.log (可在 Artifacts 中查看)"
           exit 1
         fi
     
     - name: Locate APK files
+      if: success()
       run: |
         echo "搜索 APK 文件..."
-        find . -name "*.apk" -type f || echo "未找到 APK"
+        echo ""
+        echo "=== 搜索所有 APK 文件 ==="
+        find . -name "*.apk" -type f 2>/dev/null | head -10 || echo "未找到 APK"
+        echo ""
+        echo "=== 检查常见位置 ==="
         ls -lh bin/*.apk 2>/dev/null || echo "bin/ 下未找到 APK"
         ls -lh .buildozer/android/platform/build-*/dists/*/bin/*.apk 2>/dev/null || echo ".buildozer 下未找到 APK"
+        echo ""
+        echo "=== 检查 .buildozer 目录结构 ==="
+        find .buildozer -type d -name "bin" 2>/dev/null | head -5 || echo "未找到 bin 目录"
+    
+    - name: Upload build log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: build.log
+        retention-days: 7
+      continue-on-error: true
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
