@@ -1,0 +1,76 @@
+name: Build PyQt5 APK
+
+on:
+  workflow_dispatch:  # 手动触发
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'main.py'
+      - 'src/**'
+      - 'pyproject.toml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y \
+          python3-pip \
+          build-essential \
+          git \
+          python3-dev \
+          openjdk-11-jdk \
+          wget \
+          unzip
+    
+    - name: Set up Java
+      run: |
+        echo "JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64" >> $GITHUB_ENV
+        echo "$JAVA_HOME/bin" >> $GITHUB_PATH
+    
+    - name: Install Briefcase
+      run: |
+        pip install --upgrade pip
+        pip install briefcase
+    
+    - name: Check project structure
+      run: |
+        echo "检查项目结构..."
+        test -f main.py && echo "✅ main.py 存在" || echo "❌ main.py 不存在"
+        test -f pyproject.toml && echo "✅ pyproject.toml 存在" || echo "❌ pyproject.toml 不存在"
+        test -d src && echo "✅ src 目录存在" || echo "❌ src 目录不存在"
+    
+    - name: Create Android project
+      run: |
+        echo "初始化 Android 项目..."
+        briefcase create android || echo "项目可能已存在，继续..."
+    
+    - name: Build APK
+      run: |
+        echo "构建 APK..."
+        briefcase build android
+        briefcase package android
+    
+    - name: Find APK files
+      run: |
+        echo "查找 APK 文件..."
+        find android -name "*.apk" -type f || echo "未找到 APK 文件"
+        ls -lh android/HabitBloom/app/build/outputs/apk/**/*.apk 2>/dev/null || true
+    
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: habitbloom-pyqt5-apk
+        path: android/**/*.apk
+      continue-on-error: true
