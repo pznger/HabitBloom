@@ -22,7 +22,8 @@ version = 1.0.0
 # 应用依赖
 # 注意：sqlite3 是 Python 标准库，不需要单独安装
 # 使用逗号分隔，不要有空格
-requirements = python3,kivy==2.3.1,pillow,pyjnius
+# 暂时移除 pyjnius 以避免 libffi 构建问题
+requirements = python3,kivy==2.3.1,pillow
 
 # 权限
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, VIBRATE, RECEIVE_BOOT_COMPLETED
@@ -30,7 +31,7 @@ android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, VIBRATE, RE
 # Android API 版本
 android.api = 33
 android.minapi = 21
-android.ndk = 25b
+android.ndk = 27c
 android.sdk = 33
 
 # 自动接受 SDK 许可证

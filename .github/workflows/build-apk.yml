@@ -36,6 +36,8 @@ jobs:
           autoconf \
           autoconf-archive \
           libtool \
+          libtool-bin \
+          m4 \
           pkg-config \
           libffi-dev \
           libssl-dev \
