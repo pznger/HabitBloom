@@ -89,6 +89,13 @@ jobs:
         echo "开始构建 APK..."
         echo "构建日志将保存到 build.log"
         
+        # 清理之前的构建缓存（避免使用损坏的缓存）
+        rm -rf .buildozer/android/platform/build-* 2>/dev/null || true
+        
+        # 设置环境变量以解决 libffi 构建问题
+        export CFLAGS="-Wno-error"
+        export CPPFLAGS="-Wno-error"
+        
         # 使用 set -o pipefail 确保管道中的错误能被捕获
         set -o pipefail
         
