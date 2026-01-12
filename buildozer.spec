@@ -24,7 +24,7 @@ version = 1.0.0
 # 使用逗号分隔，不要有空格
 # 使用 python-for-android 的 develop 分支以解决 libffi 问题
 requirements = python3,kivy==2.3.1,pillow
-p4a.branch = develop
+p4a.branch = master
 
 # 权限
 android.permissions = WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, VIBRATE, RECEIVE_BOOT_COMPLETED
