@@ -331,33 +331,33 @@ com.google.code.gson = "2.10.1"
 
 ### 2.1 页面导航结构
 
-![PlantUML diagram](D:\Android\androidworkspace\My Application\docs\导航结构)
+![PlantUML diagram](docs\导航结构)
 
 ### 2.2 页面原型设计
 
 #### 2.2.1 启动页 (SplashActivity)
 
-<img src="D:\Android\androidworkspace\My Application\docs\启动页" alt="845690910f4cb18cb7f12f09973022c0" style="zoom:33%;" />
+<img src="docs\启动页" alt="845690910f4cb18cb7f12f09973022c0" style="zoom:33%;" />
 
 #### 2.2.2 主花园页面 (GardenFragment)
 
-<img src="D:\Android\androidworkspace\My Application\docs\主花园" alt="970c1608d9ebdf9126238e8a3c21e8ba" style="zoom:33%;" />
+<img src="docs\主花园" alt="970c1608d9ebdf9126238e8a3c21e8ba" style="zoom:33%;" />
 
 #### 2.2.3 习惯详情页 (HabitDetailActivity)
 
-<img src="D:\Android\androidworkspace\My Application\docs\习惯详情" alt="1ddd0e6da01e2d163d0b41236a043692" style="zoom: 33%;" />
+<img src="docs\习惯详情" alt="1ddd0e6da01e2d163d0b41236a043692" style="zoom: 33%;" />
 
 #### 2.2.4 创建习惯页面 (CreateHabitActivity)
 
-<img src="D:\Android\androidworkspace\My Application\docs\创建习惯" alt="fdefeae958c8d940dcc98fc68ebdb9b0_720" style="zoom: 25%;" />
+<img src="docs\创建习惯" alt="fdefeae958c8d940dcc98fc68ebdb9b0_720" style="zoom: 25%;" />
 
 #### 2.2.5 统计页面 (StatsFragment)
 
-<img src="D:\Android\androidworkspace\My Application\docs\统计" alt="c3cb507e4f1ed02bd8a856d9cba1e8ce" style="zoom:33%;" />
+<img src="docs\统计" alt="c3cb507e4f1ed02bd8a856d9cba1e8ce" style="zoom:33%;" />
 
 #### 2.2.6 设置页面 (SettingsFragment)
 
-<img src="D:\Android\androidworkspace\My Application\docs\设置" alt="81da398d4a92f75759a7cc7d2c7ba4d0" style="zoom:33%;" />
+<img src="docs\设置" alt="81da398d4a92f75759a7cc7d2c7ba4d0" style="zoom:33%;" />
 
 ### 2.3 设计规范
 
@@ -414,7 +414,7 @@ com.google.code.gson = "2.10.1"
 
 ### 3.1 ER图
 
-![exported_image](D:\Android\androidworkspace\My Application\docs\er)
+![exported_image](docs\er)
 
 ### 3.2 表结构设计
 
