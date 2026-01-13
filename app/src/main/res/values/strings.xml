@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HabitBloom</string>
+    <string name="app_slogan">让习惯如花般绽放</string>
+
+    <!-- Navigation -->
+    <string name="nav_garden">花园</string>
+    <string name="nav_habits">习惯</string>
+    <string name="nav_stats">统计</string>
+    <string name="nav_settings">设置</string>
+
+    <!-- Garden -->
+    <string name="garden_title">我的花园</string>
+    <string name="garden_empty">还没有习惯，点击添加开始培育你的第一棵植物</string>
+    <string name="add_habit">添加习惯</string>
+
+    <!-- Habit -->
+    <string name="create_habit">创建习惯</string>
+    <string name="edit_habit">编辑习惯</string>
+    <string name="habit_name">习惯名称</string>
+    <string name="habit_name_hint">请输入习惯名称</string>
+    <string name="habit_category">选择分类</string>
+    <string name="habit_plant_type">选择植物</string>
+    <string name="habit_frequency">目标频率（每周）</string>
+    <string name="habit_difficulty">难度等级</string>
+    <string name="habit_reminder">提醒设置</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    <string name="delete">删除</string>
+
+    <!-- Categories -->
+    <string name="category_health">健康</string>
+    <string name="category_study">学习</string>
+    <string name="category_work">工作</string>
+    <string name="category_life">生活</string>
+
+    <!-- Plant Types -->
+    <string name="plant_flower">花朵</string>
+    <string name="plant_tree">树木</string>
+    <string name="plant_cactus">仙人掌</string>
+    <string name="plant_herb">草本</string>
+
+    <!-- Growth Stages -->
+    <string name="stage_seed">种子</string>
+    <string name="stage_sprout">发芽</string>
+    <string name="stage_seedling">幼苗</string>
+    <string name="stage_flowering">开花</string>
+    <string name="stage_fruit">结果</string>
+
+    <!-- Check-in -->
+    <string name="check_in">打卡</string>
+    <string name="check_in_success">打卡成功！</string>
+    <string name="already_checked_in">今日已打卡，明天继续加油！</string>
+    <string name="add_note">添加日记</string>
+    <string name="note_hint">记录一下今天的感受...</string>
+
+    <!-- Stats -->
+    <string name="stats_title">统计概览</string>
+    <string name="monthly_completion_rate">本月完成率</string>
+    <string name="current_streak">连续打卡</string>
+    <string name="longest_streak">最高记录</string>
+    <string name="total_habits">总习惯数</string>
+    <string name="success_rate">成功率</string>
+    <string name="achievements">已获得成就</string>
+    <string name="days">天</string>
+
+    <!-- Habit Detail -->
+    <string name="growth_stage">生长阶段</string>
+    <string name="continuous_days">已坚持</string>
+    <string name="weekly_target">目标</string>
+    <string name="monthly_completed">本月完成</string>
+    <string name="times_per_week">每周%d次</string>
+
+    <!-- Settings -->
+    <string name="settings_title">设置</string>
+    <string name="general_settings">通用设置</string>
+    <string name="notification_settings">通知设置</string>
+    <string name="dark_mode">深色模式</string>
+    <string name="garden_theme">花园主题</string>
+    <string name="data_management">数据管理</string>
+    <string name="export_data">导出数据</string>
+    <string name="import_data">导入数据</string>
+    <string name="clear_data">清除数据</string>
+    <string name="about">关于</string>
+    <string name="about_app">关于HabitBloom</string>
+    <string name="privacy_policy">隐私政策</string>
+    <string name="version">版本 %s</string>
+
+    <!-- User Profile -->
+    <string name="edit_profile">编辑资料</string>
+    <string name="username">昵称</string>
+    <string name="avatar_color">头像颜色</string>
+
+    <!-- Confirmation -->
+    <string name="confirm_delete">确认删除</string>
+    <string name="confirm_delete_habit">确定要删除这个习惯吗？相关的所有打卡记录也会被删除。</string>
+    <string name="confirm_clear_data">确定要清除所有数据吗？此操作不可恢复。</string>
+    <string name="confirm">确定</string>
+
+    <!-- Messages -->
+    <string name="habit_created">习惯创建成功！</string>
+    <string name="habit_updated">习惯已更新</string>
+    <string name="habit_deleted">习惯已删除</string>
+    <string name="data_exported">数据导出成功</string>
+    <string name="data_imported">数据导入成功</string>
+    <string name="data_cleared">数据已清除</string>
+    <string name="error_occurred">出错了，请重试</string>
+    <string name="field_required">此项不能为空</string>
+
+    <!-- Reminder -->
+    <string name="reminder_title">习惯提醒</string>
+    <string name="reminder_message">别忘了完成今天的习惯：%s</string>
+    <string name="set_reminder">设置提醒</string>
+    <string name="reminder_time">提醒时间</string>
+    <string name="reminder_days">提醒日期</string>
+    <string name="everyday">每天</string>
+</resources>
